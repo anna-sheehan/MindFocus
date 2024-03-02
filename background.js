@@ -15,8 +15,15 @@ chrome.alarms.onAlarm.addListener(() => {
   });
 });
 
-chrome.notifications.onButtonClicked.addListener(async () => {
+chrome.notifications.onButtonClicked.addListener(async (notificationId, buttonIndex) => {
   const item = await chrome.storage.sync.get(['minutes']);
   chrome.action.setBadgeText({ text: 'ON' });
-  chrome.alarms.create({ delayInMinutes: item.minutes });
+  if(buttonIndex == 0)
+  {
+    chrome.action.setBadgeText({ text: '' });
+    chrome.alarms.clearAll();
+  }
+  if(buttonIndex == 1){
+    chrome.alarms.create({ delayInMinutes: item.minutes });
+  }
 });

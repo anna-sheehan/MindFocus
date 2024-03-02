@@ -9,7 +9,7 @@
     },
     "action": {
       "default_title": "MindFocus Event",
-      "default_popup": "popup.html"
+      "default_popup": "popup_1.html"
     },
     "icons": {
       "16": "/images/icons8-brain-16.png",
