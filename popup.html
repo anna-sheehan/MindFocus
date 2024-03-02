@@ -5,25 +5,7 @@ occurs when you click on the MindFocus extension icon -->
 <html>
   <head>
     <title>MindFocus Popup</title>
-    <style>
-      body {
-        text-align: center;
-      }
-
-      #homeImage {
-        width: 75px;
-        margin: 5px;
-      }
-
-      button {
-        margin: 5px;
-        outline: none;
-      }
-
-      button:hover {
-        outline: #80deea dotted thick;
-      }
-    </style>
+    <link rel="stylesheet" href="popup.css">
     <!--
       - JavaScript and HTML must be in separate files
      -->
@@ -32,10 +14,58 @@ occurs when you click on the MindFocus extension icon -->
     <img src="./images/homeimage.png" id="homeImage" />
     <!-- An Alarm delay of less than the minimum 1 minute will fire
       in approximately 1 minute increments if released -->
-    <button id="sampleMinute" value="1">Sample minute</button>
+    <!-- <button id="sampleMinute" value="1">Sample minute</button>
     <button id="min15" value="15">15 Minutes</button>
-    <button id="min30" value="30">30 Minutes</button>
-    <button id="cancelAlarm">Cancel Alarm</button>
+    <button id="min30" value="30">30 Minutes</button> -->
+    <!-- <button id="cancelAlarm">Cancel Alarm</button> -->
+    <body>
+      <div class="container">
+          <h1>MindFocus</h1>
+          <div class="input-group">
+              <label for="designation">What is your designation?</label>
+              <input type="text" id="designation">
+          </div>
+          
+          <div class="input-group">
+              <label for="task">What are you working on today?</label>
+              <input type="text" id="task">
+          </div>
+  
+          <div class="input-group">
+              <label for="total-time">What is the total time you intend to work today? (in minutes)</label>
+              <div class="rolling-selector">
+                  <select id="total-time">
+                      <option value="30">30 minutes</option>
+                      <option value="60">1 hour</option>
+                      <option value="90">1 hour 30 minutes</option>
+                      <option value="120">2 hours</option>
+                      <!-- Add more options as needed -->
+                  </select>
+              </div>
+          </div>
+          <!--Can we have the time for interval and break side by side? (Similarity)-->
+          <div class="input-group">
+              <label for="interval">What is your interval for a break? (Break minutes)</label>
+              <input type="text" id="break-interval" placeholder="Ex: 30 10">
+          </div>
+          <div class="input-group">
+            <label for="interval">How often do you want the break to occur? (Study minutes)</label>
+            <input type="text" id="study-interval" placeholder="Ex: 30 10">
+        </div>
+  
+          <div class="input-group">
+              <label for="hobbies">What are your hobbies?</label>
+              <textarea id="hobbies"></textarea>
+          </div>
+  
+          <div class="button-group">
+              <button id="start">Start Timer</button>
+              <button id="cancel">Cancel Alarm</button>
+          </div>
+      </div>
+      <script src="popup.js"></script>
+  </body>
+  </html>
     <script src="popup.js"></script>
   </body>
 </html>
