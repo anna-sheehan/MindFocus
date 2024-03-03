@@ -16,14 +16,20 @@ chrome.alarms.onAlarm.addListener(() => {
 });
 
 chrome.notifications.onButtonClicked.addListener(async (notificationId, buttonIndex) => {
-  const item = await chrome.storage.sync.get(['minutes']);
+  const item = await chrome.storage.sync.get(['totalminutes']);
   chrome.action.setBadgeText({ text: 'ON' });
   if(buttonIndex == 0)
   {
-    chrome.action.setBadgeText({ text: '' });
-    chrome.alarms.clearAll();
+    chrome.action.setBadgeText({ text: 'BR' });
+    chrome.alarms.clear('totaltimealarm');
+    chrome.storage.sync.remove(['totalminutes']);
   }
   if(buttonIndex == 1){
-    chrome.alarms.create({ delayInMinutes: item.minutes });
+    chrome.alarms.create({ delayInMinutes: item.totalminutes });
   }
+});
+
+chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
+  if(buttonIndex === 0)
+    chrome.tabs.create({ url: 'https://www.youtube.com' });
 });

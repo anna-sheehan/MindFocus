@@ -22,20 +22,25 @@ occurs when you click on the MindFocus extension icon -->
       <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" value="John Doe">
+          </div>
+
+          <div class="input-group">
               <label for="designation">What is your designation?</label>
-              <input type="text" id="designation">
+              <input type="text" id="designation" value="Student">
           </div>
           
           <div class="input-group">
-              <label for="task">What are you working on today?</label>
-              <input type="text" id="task">
+              <label for="tasktodo">What are you trying to work on today?</label>
+              <input type="text" id="tasktodo" value="Study">
           </div>
   
           <div class="input-group">
               <label for="total-time">What is the total time you intend to work today? (in minutes)</label>
               <div class="rolling-selector">
                   <select id="total-time">
-                      <option value="30">30 minutes</option>
+                      <option value="1">30 minutes</option>
                       <option value="60">1 hour</option>
                       <option value="90">1 hour 30 minutes</option>
                       <option value="120">2 hours</option>
@@ -45,27 +50,25 @@ occurs when you click on the MindFocus extension icon -->
           </div>
           <!--Can we have the time for interval and break side by side? (Similarity)-->
           <div class="input-group">
-              <label for="interval">What is your interval for a break? (Break minutes)</label>
-              <input type="text" id="break-interval" placeholder="Ex: 30 10">
+              <label for="break-interval">How long of a break do you want? (Break minutes)</label>
+              <input type="text" id="break-interval" placeholder="Ex: 5 10" value="5">
           </div>
           <div class="input-group">
-            <label for="interval">How often do you want the break to occur? (Study minutes)</label>
-            <input type="text" id="study-interval" placeholder="Ex: 30 10">
+            <label for="study-interval">How often do you want the break to occur? (Study minutes)</label>
+            <input type="text" id="study-interval" placeholder="Ex: 30 10" value="1">
         </div>
   
           <div class="input-group">
               <label for="hobbies">What are your hobbies?</label>
-              <textarea id="hobbies"></textarea>
+              <textarea id="hobbies">Any of your hobbies go here.
+              </textarea>
           </div>
   
           <div class="button-group">
-              <button id="start">Start Timer</button>
-              <button id="cancel">Cancel Alarm</button>
+              <button id="start" class="btn btn-4 btn-4c icon-arrow-right">Start Timer</button>
+              <button id="cancel" class="btn btn-4 btn-4d icon-arrow-left">Cancel Alarm</button>
           </div>
       </div>
-      <script src="popup.js"></script>
-  </body>
-  </html>
     <script src="popup.js"></script>
   </body>
 </html>
