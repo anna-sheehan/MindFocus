@@ -13,6 +13,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: aliceblue;
 }
 
 h1 {
@@ -25,6 +26,7 @@ h1 {
     margin: 0 auto; /* Center horizontally */
     max-width: 30%; /* Ensure image doesn't exceed container width */
     height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
 }
 
   button {
@@ -56,6 +58,7 @@ button {
 
 .input-group label {
     display: block;
+    
     margin-bottom: 5px;
     font-weight: bold;
 }
@@ -65,10 +68,38 @@ button {
 .input-group select {
     width: 100%;
     padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    font-size: 14px;
+    border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+
+}
+
+.two-col {
+    overflow: hidden;/* Makes this div contain its floats */
+}
+
+.two-col .col1,
+.two-col .col2 {
+    width: 45%;
+    padding: 5px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+.two-col .col1 {
+    float: left;
+    font-family: Arial, sans-serif;
+}
+
+.two-col .col2 {
+    float: right;
+    font-family: Arial, sans-serif;
+}
+
+.two-col label {
+    display: block;
 }
 
 .rolling-selector select {
@@ -87,7 +118,7 @@ button {
 
 .button-group button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -101,4 +132,26 @@ button {
 
 .button-group button:hover {
     background-color: #0056b3;
+}
+
+#start {
+    background-color: #007bff; /* Bootstrap primary color */
+}
+
+#start:hover {
+    background-color: #0056b3; /* Darker shade of primary color */
+}
+
+#cancel {
+    background-color: #ff3333; /* Custom color */
+}
+
+#cancel:hover {
+    background-color: #cc0000; /* Darker shade of custom color */
+}
+
+.greyed-out {
+    background-color: #ccc !important; /* Grey background color */
+    color: #666 !important; /* Darker grey text color */
+    cursor: not-allowed !important; /* Change cursor to indicate the button is disabled */
 }
