@@ -6,18 +6,9 @@ occurs when you click on the MindFocus extension icon -->
   <head>
     <title>MindFocus Popup</title>
     <link rel="stylesheet" href="popup.css">
-    <!--
-      - JavaScript and HTML must be in separate files
-     -->
   </head>
   <body>
-    <img src="./images/homeimage.png" id="homeImage" />
-    <!-- An Alarm delay of less than the minimum 1 minute will fire
-      in approximately 1 minute increments if released -->
-    <!-- <button id="sampleMinute" value="1">Sample minute</button>
-    <button id="min15" value="15">15 Minutes</button>
-    <button id="min30" value="30">30 Minutes</button> -->
-    <!-- <button id="cancelAlarm">Cancel Alarm</button> -->
+      <img src="./images/homeimage.png" id="homeImage" />
       <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
@@ -31,61 +22,62 @@ occurs when you click on the MindFocus extension icon -->
           </div>
           
           <div class="input-group">
-
             <label for="task">What are you working on today?</label>
-            <input type="text" id="task">
-        </div>
+            <input type="text" id="task" value="Studying">
+          </div>
         
-        <div class="input-group">
+          <div class="input-group">
             <label for="total-time">What is the total time you intend to work today? (in minutes)</label>
             <div class="rolling-selector">
                 <select id="total-time">
+                    <option value="1">1 minute</option>
                     <option value="15">15 minutes</option>
                     <option value="30">30 minutes</option>
                     <option value="45">45 minutes</option>
                     <option value="60">1 hour</option>
-                    <option value="90">1 hour 15 minutes</option>
+                    <option value="75">1 hour 15 minutes</option>
                     <option value="90">1 hour 30 minutes</option>
-                    <option value="90">1 hour 45 minutes</option>
+                    <option value="105">1 hour 45 minutes</option>
                     <option value="120">2 hours</option>
-                    <!-- Add more options as needed -->
                 </select>
             </div>
-        </div>
+          </div>
         
-        <div class="two-col">
-          <div class="col1">
+          <div class="two-col">
+            <div class="col1">
               <label for="study-interval">How often do you want the break to occur? (Study minutes)</label>
-              <input type="number" id="study-interval" placeholder="Ex: 10">
-          </div>
+              <input type="number" id="study-interval" placeholder="Ex: 30 min." value="2">
+            </div>
       
-          <div class="col2">
-              <label for="break-interval">How often do you want your productivity to occur? (Study minutes)</label>
-              <input type="number" id="break-interval" placeholder="Ex: 30">
+            <div class="col2">
+              <label for="break-interval">What's your break interval? (Break minutes)</label>
+              <input type="number" id="break-interval" placeholder="Ex: 10 min." value="1">
+            </div>
           </div>
-      </div>
         
   
-      <div class="input-group">
-        <label for="hobbies">Select your hobbies?</label>
-        <div class="rolling-selector">
-            <select id="total-time">
-                <option value="15">Content creation (Youtube)</option>
-                <option value="30">Drawing</option>
-                <option value="45">Wordle</option>
-                <option value="60">Article writing</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-    </div>
-  
+          <div class="input-group">
+            <label for="hobbies">Select your hobbies?</label>
+            <div class="rolling-selector">
+                <select id="hobbies">
+                    <option value="15">Content creation (Youtube)</option>
+                    <option value="30">Drawing</option>
+                    <option value="45">Wordle</option>
+                    <option value="60">Article writing</option>
+                </select>
+            </div>
+          </div>
+
+          <div id="countdown">
+              <p id="countdown-text"></p>
+          </div>
+
           <div class="button-group">
-              <button id="start" class="btn btn-4 btn-4c icon-arrow-right">Start Timer</button>
-              <button id="cancel" class="btn btn-4 btn-4d icon-arrow-left">Cancel Alarm</button>
+              <button id="start">Start Timer</button>
+              <button id="cancel">Cancel Alarm</button>
           </div>
       </div>
 
-<!-- Your existing JavaScript -->
-<script src="popup.js"></script>     
+    <script src="popup.js"></script>     
   </body>
 </html>
