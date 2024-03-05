@@ -1,10 +1,13 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: monospace;
     padding: 20px;
     background-color: #f3f3f3;
+    font-size: medium;
   }
 
-
+input{
+    font-family: monospace;
+}
 .container {
     text-align: center;
     max-width: 1000px;
@@ -29,15 +32,15 @@ h1 {
     margin-bottom: 10px;
 }
 
-  button {
+button {
     margin: 5px;
     outline: none;
     
-  }
+}
 
-  button:hover {
-    outline: #80deea dotted thick;
-  }
+button:hover {
+    outline: #80deea dotted thin;
+}
 
 .container {
     width: 300px;
@@ -134,6 +137,7 @@ button {
     background-color: #0056b3;
 }
 
+
 #start {
     background-color: #007bff; /* Bootstrap primary color */
 }
@@ -154,4 +158,9 @@ button {
     background-color: #ccc !important; /* Grey background color */
     color: #666 !important; /* Darker grey text color */
     cursor: not-allowed !important; /* Change cursor to indicate the button is disabled */
+}
+/* Add your disabled button styles here */
+#start[disabled] {
+    background-color: #bdc3c7; /* Change the color for disabled state */
+    cursor: not-allowed;
 }

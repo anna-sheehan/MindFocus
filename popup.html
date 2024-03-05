@@ -21,11 +21,17 @@ occurs when you click on the MindFocus extension icon -->
       <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
+            <label for="name">What is your name?</label>
+            <input type="text" id="name" value="John Doe">
+          </div>
+
+          <div class="input-group">
               <label for="designation">What is your designation?</label>
-              <input type="text" id="designation">
+              <input type="text" id="designation" value="Student">
           </div>
           
           <div class="input-group">
+
             <label for="task">What are you working on today?</label>
             <input type="text" id="task">
         </div>
@@ -74,9 +80,9 @@ occurs when you click on the MindFocus extension icon -->
     </div>
   
           <div class="button-group">
-            <button id="start">Start Timer</button>
-            <button id="cancel">Cancel Alarm</button>
-        </div>
+              <button id="start" class="btn btn-4 btn-4c icon-arrow-right">Start Timer</button>
+              <button id="cancel" class="btn btn-4 btn-4d icon-arrow-left">Cancel Alarm</button>
+          </div>
       </div>
 
 <!-- Your existing JavaScript -->
