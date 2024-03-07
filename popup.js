@@ -15,15 +15,80 @@
 const startBtn = document.getElementById('start');
 const cancelBtn = document.getElementById('cancel');
 
+// function setAlarm(totaltime, breaktime, studyinterval) {
+//   //alert(event.value);
+//   const minutes = parseFloat(totaltime.value);
+//   chrome.action.setBadgeText({ text: 'ON' });
+//   chrome.alarms.create('totaltimealarm',{ delayInMinutes: minutes });
+//   chrome.storage.sync.set({ totalminutes: minutes });
+
+//   alert("Alarm has been created!");
+  
+//   disableStartButton();
+
+// }
+
+// Annanya Code //
+
 function setAlarm(totaltime, breaktime, studyinterval) {
-  //alert(event.value);
-  const minutes = parseFloat(totaltime.value);
-  chrome.action.setBadgeText({ text: 'ON' });
-  chrome.alarms.create('totaltimealarm',{ delayInMinutes: minutes });
-  chrome.storage.sync.set({ totalminutes: minutes });
-  alert("Alarm has been created!");
   disableStartButton();
+  enableCancelButton();
+  // alert("Alarm has been created!");
+  chrome.action.setBadgeText({ text: 'ON' });
+  showMask();
+
+  const studyTime = parseInt(studyinterval.value) * 60; // Convert study interval to seconds
+  const breakTime = parseInt(breaktime.value) * 60; // Convert break interval to seconds
+  const totalTime = parseInt(totaltime.value) * 60; // Convert total time to seconds
+  
+  let currentTime = 0;
+  let studyAlertShown = false; // Variable to track if study alert has been shown
+  let breakAlertShown = false; // Variable to track if break alert has been shown
+
+  const timerInterval = setInterval(function() {
+    if (currentTime >= totalTime) {
+      enableStartButton();
+      disableCancelButton();
+      clearInterval(timerInterval); // Stop the timer when total time is reached
+      alert("Timer completed!"); // Show completion message
+      return;
+    }
+    
+    if (!studyAlertShown && currentTime % (studyTime + breakTime) < studyTime) {
+      // It's study time and study alert has not been shown yet
+      alert("Study time!"); 
+      hideMask2();
+      showMask();
+      studyAlertShown = true; // Set studyAlertShown to true to prevent showing study alert again
+      breakAlertShown = false; // Reset breakAlertShown
+    } else if (!breakAlertShown && currentTime % (studyTime + breakTime) >= studyTime) {
+      alert("Break time!"); 
+      hideMask();
+      showMask2();
+      breakAlertShown = true; // Set breakAlertShown to true to prevent showing break alert again
+      studyAlertShown = false; // Reset studyAlertShown
+
+    }
+
+    currentTime += 1; // Increment current time by 1 second
+
+    if (currentTime >= totalTime) {
+      clearInterval(timerInterval); // Stop the timer when total time is reached
+      alert("Timer completed!"); // Show completion message
+      hideMask2();
+      enableStartButton();
+      disableCancelButton();
+    }
+  }, 1000); // Update every second
+
+
+  
+  chrome.alarms.create('totaltimealarm', { delayInMinutes: parseInt(totaltime.value) });
+  chrome.storage.sync.set({ totalminutes: parseInt(totaltime.value) });
+
+  
 }
+
 
 function resumeAlarm() {
   return;
@@ -35,7 +100,10 @@ function clearAlarm() {
   chrome.alarms.clearAll();
   alert("Alarm has been cancelled!");
   //chrome.storage.sync.remove(['totalminutes']);
+  showMain();
   enableStartButton();
+  disableCancelButton();
+
 
 }
 
@@ -99,12 +167,23 @@ function validateInput(){
 function disableStartButton() {
   startBtn.classList.add('greyed-out');
   startBtn.disabled = true;
-  showMask();
+  // showMask();
 }
 
 function enableStartButton() {
   startBtn.classList.remove('greyed-out');
   startBtn.disabled = false;
+}
+
+function disableCancelButton() {
+  cancelBtn.classList.add('greyed-out');
+  cancelBtn.disabled = true;
+  // showMask();
+}
+
+function enableCancelButton() {
+  cancelBtn.classList.remove('greyed-out');
+  cancelBtn.disabled = false;
 }
 
 function studybreaks(totaltime, breaktime, studyinterval) {
@@ -210,13 +289,32 @@ function hideMask() {
   document.getElementById('mask').style.display = 'none';
 }
 
+function showMask2() {
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('mask2').style.display = 'block';
+}
+
+
+// Function to hide the mask and show the original content
+function hideMask2() {
+  document.getElementById('original-content').style.display = 'block';
+  document.getElementById('mask2').style.display = 'none';
+}
+
+function showMain(){
+  document.getElementById('original-content').style.display = 'block';
+}
+
 document.getElementById('cancel2').addEventListener('click', clearAlarm);
 function clearAlarm() {
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
   alert("Alarm has been cancelled!");
+
   //chrome.storage.sync.remove(['totalminutes']);
+  hideMask2();
   hideMask();
   enableStartButton();
+  disableCancelButton();
 
 }

@@ -35,8 +35,8 @@ occurs when you click on the MindFocus extension icon -->
             <label for="total-time">What is the total time you intend to work today? (in minutes)</label>
             <div class="rolling-selector">
                 <select id="total-time">
-                    <option value="1">1 minute</option>
-                    <option value="15">15 minutes</option>
+                    <option value="2">2 minutes</option>
+                    <option value="5">5 minutes</option>
                     <option value="30">30 minutes</option>
                     <option value="45">45 minutes</option>
                     <option value="60">1 hour</option>
@@ -89,8 +89,23 @@ occurs when you click on the MindFocus extension icon -->
 
       <!-- Mask -->
       <div id="mask" style="display: none;">
-        <h1>Time to study</h1>
+        <h1>Time to be productive</h1>
         <div class="button-group">
+          <button id="help">Feeling overwhelmed, some help would be great!</button>
+          <button id="cancel2">Cancel Alarm</button>
+      </div>
+        <!-- Your mask content goes here -->
+      </div>
+
+      <!-- Mask 2-->
+      <div id="mask2" style="display: none;">
+        <h1>Time for a break!</h1>
+        <div class="button-group">
+          <button id="youtube">
+            <a href="https://www.youtube.com/" target="_blank" style="text-decoration: none; color: inherit;">
+              Yay! Time to create content!
+            </a>
+          </button>
           <button id="cancel2">Cancel Alarm</button>
       </div>
         <!-- Your mask content goes here -->
