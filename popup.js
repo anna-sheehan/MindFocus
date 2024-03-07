@@ -36,6 +36,7 @@ function clearAlarm() {
   alert("Alarm has been cancelled!");
   //chrome.storage.sync.remove(['totalminutes']);
   enableStartButton();
+
 }
 
 startBtn.addEventListener('click', validateInput);
@@ -77,12 +78,13 @@ function validateInput(){
     alert("Hobbies required!");
     hobbies.focus();
   }
-  else{
-    if(studyinterval.value > totaltime.value){
+  else if(parseInt(studyinterval.value) > parseInt(totaltime.value)){
+      console.log(studyinterval.value)
+      console.log(totaltime.value)
       alert("Study time must not be greater than total time!");
       studyinterval.focus();
     }
-    else if(breaktime.value > totaltime.value){
+    else if(parseInt(breaktime.value > totaltime.value)){
       alert("Break time must not be greater than total time!");
       breaktime.focus();
     }
@@ -92,11 +94,12 @@ function validateInput(){
     
   }
   
-}
+
 
 function disableStartButton() {
   startBtn.classList.add('greyed-out');
   startBtn.disabled = true;
+  showMask();
 }
 
 function enableStartButton() {
@@ -193,3 +196,27 @@ document.getElementById('min15').addEventListener('click', setAlarm);
 document.getElementById('min30').addEventListener('click', setAlarm);
 document.getElementById('cancelAlarm').addEventListener('click', clearAlarm);
 */
+
+// Annanya Added code
+
+function showMask() {
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('mask').style.display = 'block';
+}
+
+// Function to hide the mask and show the original content
+function hideMask() {
+  document.getElementById('original-content').style.display = 'block';
+  document.getElementById('mask').style.display = 'none';
+}
+
+document.getElementById('cancel2').addEventListener('click', clearAlarm);
+function clearAlarm() {
+  chrome.action.setBadgeText({ text: '' });
+  chrome.alarms.clearAll();
+  alert("Alarm has been cancelled!");
+  //chrome.storage.sync.remove(['totalminutes']);
+  hideMask();
+  enableStartButton();
+
+}

@@ -1,12 +1,12 @@
 body {
-    font-family: monospace;
+    font-family: 'Roboto', sans-serif;
     padding: 20px;
     background-color: #f3f3f3;
-    font-size: medium;
+    font-size: small;
   }
 
 input{
-    font-family: monospace;
+    font-family: 'Roboto', sans-serif;
 }
 .container {
     text-align: center;
@@ -87,18 +87,18 @@ button {
     width: 45%;
     padding: 5px;
     font-size: 12px;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
 }
 
 .two-col .col1 {
     float: left;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .two-col .col2 {
     float: right;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .two-col label {
@@ -164,3 +164,12 @@ button {
     background-color: #bdc3c7; /* Change the color for disabled state */
     cursor: not-allowed;
 }
+
+#cancel2 {
+    background-color: #ff3333; /* Custom color */
+}
+
+#cancel2:hover {
+    background-color: #cc0000; /* Darker shade of custom color */
+}
+

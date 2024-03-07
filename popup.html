@@ -6,9 +6,14 @@ occurs when you click on the MindFocus extension icon -->
   <head>
     <title>MindFocus Popup</title>
     <link rel="stylesheet" href="popup.css">
+    <!-- Latest compiled and minified CSS -->
+   
+
   </head>
   <body>
       <img src="./images/homeimage.png" id="homeImage" />
+      <!-- Original content -->
+      <div id="original-content">
       <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
@@ -45,19 +50,19 @@ occurs when you click on the MindFocus extension icon -->
         
           <div class="two-col">
             <div class="col1">
-              <label for="study-interval">How often do you want the break to occur? (Study minutes)</label>
+              <label for="study-interval">Study interval (in minutes)</label>
               <input type="number" id="study-interval" placeholder="Ex: 30 min." value="2">
             </div>
       
             <div class="col2">
-              <label for="break-interval">What's your break interval? (Break minutes)</label>
+              <label for="break-interval">Break interval (in minutes)</label>
               <input type="number" id="break-interval" placeholder="Ex: 10 min." value="1">
             </div>
           </div>
         
   
           <div class="input-group">
-            <label for="hobbies">Select your hobbies?</label>
+            <label for="hobbies">What are your hobbies?</label>
             <div class="rolling-selector">
                 <select id="hobbies">
                     <option value="15">Content creation (Youtube)</option>
@@ -72,10 +77,23 @@ occurs when you click on the MindFocus extension icon -->
               <p id="countdown-text"></p>
           </div>
 
+          </div>
+          <!-- Your original content goes here -->
+
+
           <div class="button-group">
               <button id="start">Start Timer</button>
               <button id="cancel">Cancel Alarm</button>
           </div>
+      </div>
+
+      <!-- Mask -->
+      <div id="mask" style="display: none;">
+        <h1>Time to study</h1>
+        <div class="button-group">
+          <button id="cancel2">Cancel Alarm</button>
+      </div>
+        <!-- Your mask content goes here -->
       </div>
 
     <script src="popup.js"></script>     
