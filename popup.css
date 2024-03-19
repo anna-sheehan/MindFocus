@@ -189,3 +189,11 @@ button {
     background-color: #cc0000; /* Darker shade of custom color */
 }
 
+#cancel3 {
+    background-color: #ff3333; /* Custom color */
+}
+
+#cancel3:hover {
+    background-color: #cc0000; /* Darker shade of custom color */
+}
+

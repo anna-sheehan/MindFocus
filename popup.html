@@ -73,11 +73,7 @@ occurs when you click on the MindFocus extension icon -->
                 </select>
             </div>
           </div>
-
           </div>
-          <!-- Your original content goes here -->
-
-
           <div class="button-group">
               <button id="start">Start Session</button>
               <button id="cancel">Cancel Session</button>
@@ -94,9 +90,7 @@ occurs when you click on the MindFocus extension icon -->
           <button id="pause">Pause Session</button>
           <button id="cancel1">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
-
       </div>
-        <!-- Your mask content goes here -->
       </div>
 
 
@@ -106,18 +100,30 @@ occurs when you click on the MindFocus extension icon -->
         <h1>It's time to take a break!</h1>
         <p style="text-align:center;">How would you like to spend your break?</p>
         <div class="button-group">
-          <button id="youtube">
+          <button id="startbreak">
             <a href="https://www.youtube.com/" target="_blank" style="text-decoration: none; color: inherit;">
-              Start break
+              Start Break
             </a>
           </button>
           <button id="skip">Skip break</button>
           <button id="cancel2">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
+      </div>
+      </div>
 
+
+      <!-- In Break Session Mask (Mask 3) -->
+      <div id="inbreakmask" style="display: none;">
+        <img src="./images/popupImage.png" id="popupImage" />
+        <h1>Enjoy your break!</h1>
+        <p style="text-align:center;">We will notify you when it is time to get back to work.</p>
+        <div class="button-group">
+          <button id="pause">Resume Work Session</button>
+          <button id="cancel3">Cancel Session</button>
+          <p style="text-align:center;">Please keep this tab open.</p>
       </div>
-        <!-- Your mask content goes here -->
       </div>
+
 
     <script src="popup.js"></script>     
   </body>
