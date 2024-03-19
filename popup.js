@@ -56,12 +56,13 @@ function setAlarm(totaltime, breaktime, studyinterval) {
     
     if (!studyAlertShown && currentTime % (studyTime + breakTime) < studyTime) {
       // It's study time and study alert has not been shown yet
-      alert("Study time!"); 
+      // alert("Study time!"); 
       hideMask2();
       showMask();
       studyAlertShown = true; // Set studyAlertShown to true to prevent showing study alert again
       breakAlertShown = false; // Reset breakAlertShown
-    } else if (!breakAlertShown && currentTime % (studyTime + breakTime) >= studyTime) {
+    } 
+    else if (!breakAlertShown && currentTime % (studyTime + breakTime) >= studyTime) {
       alert("Break time!"); 
       hideMask();
       showMask2();
@@ -98,14 +99,40 @@ document.getElementById('cancel').addEventListener('click', clearAlarm);
 function clearAlarm() {
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
-  alert("Alarm has been cancelled!");
-  //chrome.storage.sync.remove(['totalminutes']);
+  alert("Your session has been cancelled");
   showMain();
   enableStartButton();
   disableCancelButton();
+}
 
+document.getElementById('cancel1').addEventListener('click', clearAlarm);
+function clearAlarm() {
+  chrome.action.setBadgeText({ text: '' });
+  chrome.alarms.clearAll();
+  alert("Alarm has been cancelled");
+  showMain();
+  hideMask2();
+  hideMask();
+  enableStartButton();
+  disableCancelButton();
 
 }
+
+document.getElementById('cancel2').addEventListener('click', clearAlarm);
+function clearAlarm() {
+  chrome.action.setBadgeText({ text: '' });
+  chrome.alarms.clearAll();
+  alert("Alarm has been cancelled");
+  showMain();
+  hideMask2();
+  hideMask();
+  enableStartButton();
+  disableCancelButton();
+
+}
+
+
+
 
 startBtn.addEventListener('click', validateInput);
 function validateInput(){
@@ -187,7 +214,6 @@ function enableCancelButton() {
 }
 
 function studybreaks(totaltime, breaktime, studyinterval) {
-
   return;
 }
 
@@ -280,41 +306,28 @@ document.getElementById('cancelAlarm').addEventListener('click', clearAlarm);
 
 function showMask() {
   document.getElementById('original-content').style.display = 'none';
-  document.getElementById('mask').style.display = 'block';
+  document.getElementById('workmask').style.display = 'block';
 }
 
 // Function to hide the mask and show the original content
 function hideMask() {
   document.getElementById('original-content').style.display = 'block';
-  document.getElementById('mask').style.display = 'none';
+  document.getElementById('workmask').style.display = 'none';
 }
 
 function showMask2() {
   document.getElementById('original-content').style.display = 'none';
-  document.getElementById('mask2').style.display = 'block';
+  document.getElementById('breakmask').style.display = 'block';
 }
 
 
 // Function to hide the mask and show the original content
 function hideMask2() {
   document.getElementById('original-content').style.display = 'block';
-  document.getElementById('mask2').style.display = 'none';
+  document.getElementById('breakmask').style.display = 'none';
 }
 
 function showMain(){
   document.getElementById('original-content').style.display = 'block';
 }
 
-document.getElementById('cancel2').addEventListener('click', clearAlarm);
-function clearAlarm() {
-  chrome.action.setBadgeText({ text: '' });
-  chrome.alarms.clearAll();
-  alert("Alarm has been cancelled!");
-
-  //chrome.storage.sync.remove(['totalminutes']);
-  hideMask2();
-  hideMask();
-  enableStartButton();
-  disableCancelButton();
-
-}

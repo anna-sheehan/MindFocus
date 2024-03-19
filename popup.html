@@ -11,30 +11,30 @@ occurs when you click on the MindFocus extension icon -->
 
   </head>
   <body>
-      <img src="./images/homeimage.png" id="homeImage" />
       <!-- Original content -->
       <div id="original-content">
       <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
             <label for="name">What is your name?</label>
-            <input type="text" id="name" value="John Doe">
+            <input type="text" id="name" placeholder="Ex. John Doe">
           </div>
 
           <div class="input-group">
               <label for="designation">What is your designation?</label>
-              <input type="text" id="designation" value="Student">
+              <input type="text" id="designation" placeholder="Ex. Student">
           </div>
           
           <div class="input-group">
-            <label for="task">What are you working on today?</label>
-            <input type="text" id="task" value="Studying">
+            <label for="task">What are you planning to work on?</label>
+            <input type="text" id="task" placeholder="Ex. Studying">
           </div>
         
           <div class="input-group">
-            <label for="total-time">What is the total time you intend to work today? (in minutes)</label>
+            <label for="total-time">How long would you like to work?</label>
             <div class="rolling-selector">
                 <select id="total-time">
+                    <option>-- Select --</option>
                     <option value="2">2 minutes</option>
                     <option value="5">5 minutes</option>
                     <option value="30">30 minutes</option>
@@ -50,31 +50,28 @@ occurs when you click on the MindFocus extension icon -->
         
           <div class="two-col">
             <div class="col1">
-              <label for="study-interval">Study interval (in minutes)</label>
-              <input type="number" id="study-interval" placeholder="Ex: 30 min." value="2">
+              <label for="study-interval">Study intervals (minutes)</label>
+              <input type="number" id="study-interval" placeholder="Ex. 30">
             </div>
       
             <div class="col2">
-              <label for="break-interval">Break interval (in minutes)</label>
-              <input type="number" id="break-interval" placeholder="Ex: 10 min." value="1">
+              <label for="break-interval">Break intervals (minutes)</label>
+              <input type="number" id="break-interval" placeholder="Ex. 10">
             </div>
           </div>
         
   
           <div class="input-group">
-            <label for="hobbies">What are your hobbies?</label>
+            <label for="hobbies">How would you like to enjoy your breaks?</label>
             <div class="rolling-selector">
                 <select id="hobbies">
-                    <option value="15">Content creation (Youtube)</option>
-                    <option value="30">Drawing</option>
+                    <option>-- Select --</option>
+                    <option value="15">Youtube</option>
+                    <option value="30">Art</option>
                     <option value="45">Wordle</option>
-                    <option value="60">Article writing</option>
+                    <option value="60">Journal</option>
                 </select>
             </div>
-          </div>
-
-          <div id="countdown">
-              <p id="countdown-text"></p>
           </div>
 
           </div>
@@ -82,31 +79,42 @@ occurs when you click on the MindFocus extension icon -->
 
 
           <div class="button-group">
-              <button id="start">Start Timer</button>
-              <button id="cancel">Cancel Alarm</button>
+              <button id="start">Start Session</button>
+              <button id="cancel">Cancel Session</button>
           </div>
       </div>
 
-      <!-- Mask -->
-      <div id="mask" style="display: none;">
-        <h1>Time to be productive</h1>
+
+      <!-- Working Session Mask (Mask 1) -->
+      <div id="workmask" style="display: none;">
+        <img src="./images/popupImage.png" id="popupImage" />
+        <h1 style="text-align:center;">Your work session has begun!</h1>
+        <p style="text-align:center;">We will notify you when it is time to take a break.</p>
         <div class="button-group">
-          <button id="help">Feeling overwhelmed, some help would be great!</button>
-          <button id="cancel2">Cancel Alarm</button>
+          <button id="pause">Pause Session</button>
+          <button id="cancel1">Cancel Session</button>
+          <p style="text-align:center;">Please keep this tab open.</p>
+
       </div>
         <!-- Your mask content goes here -->
       </div>
 
-      <!-- Mask 2-->
-      <div id="mask2" style="display: none;">
-        <h1>Time for a break!</h1>
+
+      <!-- Break Session Mask (Mask 2) -->
+      <div id="breakmask" style="display: none;">
+        <img src="./images/popupImage.png" id="popupImage" />
+        <h1>It's time to take a break!</h1>
+        <p style="text-align:center;">How would you like to spend your break?</p>
         <div class="button-group">
           <button id="youtube">
             <a href="https://www.youtube.com/" target="_blank" style="text-decoration: none; color: inherit;">
-              Yay! Time to create content!
+              Start break
             </a>
           </button>
-          <button id="cancel2">Cancel Alarm</button>
+          <button id="skip">Skip break</button>
+          <button id="cancel2">Cancel Session</button>
+          <p style="text-align:center;">Please keep this tab open.</p>
+
       </div>
         <!-- Your mask content goes here -->
       </div>

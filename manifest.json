@@ -1,5 +1,5 @@
 {
-    "name": "MindFocus Event Popup",
+    "name": "MindFocus",
     "description": "Human Computer Interaction Group Project",
     "version": "1.0",
     "manifest_version": 3,
@@ -8,8 +8,8 @@
       "service_worker": "background.js"
     },
     "action": {
-      "default_title": "MindFocus Event",
-      "default_popup": "popup.html"
+      "default_title": "MindFocus",
+      "default_popup": "homepage.html"
     },
     "icons": {
       "16": "/images/icons8-brain-16.png",

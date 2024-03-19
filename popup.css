@@ -32,6 +32,14 @@ h1 {
     margin-bottom: 10px;
 }
 
+#popupImage {
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+    max-width: 5%; /* Ensure image doesn't exceed container width */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
+}
+
 button {
     margin: 5px;
     outline: none;
@@ -47,7 +55,7 @@ button:hover {
 }
 
 input[type="text"], input[type="number"], textarea {
-    width: 100%;
+    width: 70%;
     margin-bottom: 10px;
 }
 
@@ -163,6 +171,14 @@ button {
 #start[disabled] {
     background-color: #bdc3c7; /* Change the color for disabled state */
     cursor: not-allowed;
+}
+
+#cancel1 {
+    background-color: #ff3333; /* Custom color */
+}
+
+#cancel1:hover {
+    background-color: #cc0000; /* Darker shade of custom color */
 }
 
 #cancel2 {
