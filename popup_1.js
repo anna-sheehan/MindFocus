@@ -1,1 +1,0 @@
-//document.getElementById('submit').addEventListener('click', function() {chrome.tabs.create({ url: 'popup.html' });});
