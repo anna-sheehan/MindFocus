@@ -6,6 +6,25 @@
 
 window.onload = async () => {
     document.getElementById('initialize').onclick = () => {
-      window.open('popup.html', '_blank');
+      //Check if MindFocus is already open
+      var localPagePath = "popup.html";
+      var tabExists = false;
+
+      chrome.tabs.query({}, function(tabs) {
+        tabs.forEach(function(existingTab) {
+            console.log(existingTab.url);
+            console.log(chrome.runtime.getURL(localPagePath));
+            if (existingTab.url === chrome.runtime.getURL(localPagePath)) {
+                tabExists = true;
+                // Activate existing tab
+                chrome.tabs.update(existingTab.id, { active: true });
+                return;
+            }
+        });
+        //Creates a new mindfocus tab in case it doesn't already exist
+        if(!tabExists){
+          window.open('popup.html', '_blank');
+        }
+      });
     };
   };

@@ -29,7 +29,8 @@ occurs when you click on the MindFocus extension icon -->
             <label for="task">What are you planning to work on?</label>
             <input type="text" id="task" placeholder="Ex. Studying">
           </div>
-        
+
+          <!--
           <div class="input-group">
             <label for="total-time">How long would you like to work?</label>
             <div class="rolling-selector">
@@ -47,20 +48,30 @@ occurs when you click on the MindFocus extension icon -->
                 </select>
             </div>
           </div>
-        
+		  
           <div class="two-col">
             <div class="col1">
-              <label for="study-interval">Study intervals (minutes)</label>
+              <label for="study-interval">How long do you want your Study intervals to be (in minutes)</label>
               <input type="number" id="study-interval" placeholder="Ex. 30">
             </div>
       
             <div class="col2">
-              <label for="break-interval">Break intervals (minutes)</label>
+              <label for="break-interval">How long do you want your Break intervals to be (in minutes)</label>
               <input type="number" id="break-interval" placeholder="Ex. 10">
             </div>
           </div>
-        
-  
+          -->
+          
+          <div class="input-group">
+            <label for="study-interval">How long do you want your Work intervals to be (in minutes)</label>
+            <input type="number" id="study-interval" placeholder="Ex. 30">
+          </div>
+    
+          <div class="input-group">
+            <label for="break-interval">How long do you want your Break intervals to be (in minutes)</label>
+            <input type="number" id="break-interval" placeholder="Ex. 10">
+          </div>
+          
           <div class="input-group">
             <label for="hobbies">How would you like to enjoy your breaks?</label>
             <div class="rolling-selector">
@@ -73,11 +84,11 @@ occurs when you click on the MindFocus extension icon -->
                 </select>
             </div>
           </div>
-          </div>
           <div class="button-group">
-              <button id="start">Start Session</button>
-              <button id="cancel">Cancel Session</button>
-          </div>
+            <button id="start">Start Session</button>
+            <!--<button id="cancel">Cancel Session</button>-->
+        </div>
+        </div>
       </div>
 
 

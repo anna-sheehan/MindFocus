@@ -3,7 +3,7 @@
     "description": "Human Computer Interaction Group Project",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["alarms", "notifications", "storage"],
+    "permissions": ["alarms", "notifications", "storage", "tabs"],
     "background": {
       "service_worker": "background.js"
     },
