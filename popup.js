@@ -7,7 +7,7 @@
 
 // Set up global buttons
 const startBtn = document.getElementById('start');
-//const cancelBtn = document.getElementById('cancel');
+const cancelBtn = document.getElementById('cancel');
 
 window.onload = async () => {
   if(localStorage.getItem('name') != null){
@@ -30,121 +30,215 @@ window.onload = async () => {
   }
 }
 
+chrome.alarms.onAlarm.addListener(alarm => {
+  if (alarm.name === 'totaltimealarm') {
+    // Code to execute when totaltimealarm is triggered
+    console.log('Alarm 1 triggered');
+    hideMask1();
+    showMask2();
+
+  } 
+  else if (alarm.name === 'alarm2') {
+    // Code to execute when alarm2 is triggered
+    console.log('Alarm 2 triggered');
+  }
+});
+
 // Alarm functions
-function setAlarm(studyinterval, breakinterval) {
+function setAlarm(studyinterval) {
   disableStartButton();
   //enableCancelButton();
   chrome.action.setBadgeText({ text: 'ON' });
   showMask1();
 
-  //const studyTime = parseInt(studyinterval.value) * 60; // Convert study interval to seconds
-  const breakTime = parseInt(breakinterval.value) * 60; // Convert break interval to seconds
-  const studyTime = parseInt(studyinterval.value) * 60; // Convert total time to seconds
-  
-  let currentTime = 0;
-  let studyAlertShown = false; // Variable to track if study alert has been shown
-  let breakAlertShown = false; // Variable to track if break alert has been shown
-
-  const timerInterval = setInterval(function() {
-    if (currentTime >= studyTime) {
-      enableStartButton();
-      //disableCancelButton();
-      clearInterval(timerInterval); // Stop the timer when total time is reached
-      //alert("Timer completed!"); // Show completion message
-      showMain();
-      return;
-    }
-    
-    if (!studyAlertShown && currentTime % (studyTime + breakTime) < studyTime) {
-      // It's study time and study alert has not been shown yet
-      // alert("Study time!"); 
-      hideMask2();
-      showMask1();
-      studyAlertShown = true; // Set studyAlertShown to true to prevent showing study alert again
-      breakAlertShown = false; // Reset breakAlertShown
-    } 
-    else if (!breakAlertShown && currentTime % (studyTime + breakTime) >= studyTime) {
-      //alert("Break time!"); 
-      hideMask1();
-      showMask2();
-      breakAlertShown = true; // Set breakAlertShown to true to prevent showing break alert again
-      studyAlertShown = false; // Reset studyAlertShown
-
-    }
-
-    currentTime += 1; // Increment current time by 1 second
-
-    if (currentTime >= studyTime) {
-      clearInterval(timerInterval); // Stop the timer when total time is reached
-      //alert("Timer completed!"); // Show completion message
-      showMain();
-      enableStartButton();
-      //disableCancelButton();
-    }
-  }, 1000); // Update every second
-
-  chrome.alarms.create('totaltimealarm', { delayInMinutes: parseInt(studyinterval.value) });
-  chrome.storage.sync.set({ totalminutes: parseInt(studyinterval.value) });
+  chrome.alarms.create('totaltimealarm', { delayInMinutes: parseInt(studyinterval) });
+  chrome.storage.sync.set({ totalminutes: parseInt(studyinterval) });
 }
 
-
-function resumeAlarm() {
-  return;
-}
-
+// Timer variables
+var distance = 0;
+var x;
 
 function displaytimer(totaltime){
-  let countdown;
-  const temp = parseFloat(totaltime.value);
-  const totalSeconds = temp*60;
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-  document.getElementById('countdown').innerText = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
-  totalSeconds--;
+  var countDownDate = new Date().getTime() + totaltime * 60 * 1000; // Convert total time to milliseconds
+
+  //console.log(countDownDate);
+  //console.log(new Date().getTime());
+  
+  // Update the count down every 1 second
+  x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      distance = countDownDate - now;
+        
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      //console.log(minutes);
+      //console.log(seconds);
+        
+      // Output the result in an element with id="demo"
+      document.getElementById("countdown").innerHTML = "Remaining Timer : " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+        
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "Remaining Timer : 0h 0m 0s ";
+        //document.getElementById("countdown").innerHTML = "TIME UP!";
+      }
+
+  }, 1000);
 }
 
-
-// Set up button functionalities for each mask
-//document.getElementById('cancel').addEventListener('click', clearAlarm); // Original page 'Cancel Session'
-function clearAlarm() {
+//Pause session
+var pauseBtn = document.getElementById('pause');
+pauseBtn.addEventListener('click', function() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
-  alert("Your session has been cancelled");
-  showMain();
-  enableStartButton();
-  //disableCancelButton();
-}
+  hideMask1();
+  showPauseMask();
+})
 
+
+//Resume session after pause
+var resumeBtn1 = document.getElementById('resume1');
+resumeBtn1.addEventListener('click', function() {
+  chrome.action.setBadgeText({ text: 'ON' });
+  hidePauseMask();
+  showMask1();
+  var remainingtime = distance;
+  //console.log(remainingtime);
+  var newtotaltime = new Date().getTime() + remainingtime;
+  chrome.alarms.create('totaltimealarm', { when: newtotaltime });
+  displaytimer((remainingtime/1000)/60);
+})
+
+
+// Start Break session
+var startbreakBtn = document.getElementById('startbreak');
+startbreakBtn.addEventListener('click', function() {
+  var breakInterval = parseInt(localStorage.getItem('breakInterval'));
+  chrome.action.setBadgeText({ text: 'BR' });
+  //console.log(breakInterval);
+  chrome.alarms.create('breakalarm', { delayInMinutes: breakInterval });
+  displaytimer(breakInterval);
+
+  var hobby = localStorage.getItem('hobbies');
+  if(hobby == "1"){
+    chrome.tabs.create({ url: 'https://www.youtube.com' });
+  }
+  else if (hobby == "2"){
+    chrome.tabs.create({ url: 'https://sketch.io/sketchpad/' });
+  }
+  else if (hobby == "3"){
+    chrome.tabs.create({ url: 'https://www.nytimes.com/games/wordle/index.html' });
+  }
+  else if (hobby == "4"){
+    chrome.tabs.create({ url: 'https://www.notion.so/' });
+  }
+  else if (hobby == "5"){
+    chrome.tabs.create({ url: 'https://openlibrary.org/' });
+  }
+  else if (hobby == "6"){
+    chrome.tabs.create({ url: 'https://open.spotify.com/' });
+  }
+  else if (hobby == "7"){
+    chrome.tabs.create({ url: 'https://www.thechoppingblock.com/cooking-resources' });
+  }
+  else if (hobby == "8"){
+    alert("Have a great time!");
+  }
+  else if (hobby == "9"){
+    alert("Here's to the best beverage!");
+  }
+})
+
+
+// Resume Work Session after break
+var resumeBtn2 = document.getElementById('resume2');
+resumeBtn2.addEventListener('click', function() {
+  chrome.action.setBadgeText({ text: 'ON' });
+  chrome.alarms.clearAll();
+  hideMask3();
+  showMask1();
+  var totaltime = parseInt(localStorage.getItem('studyInterval'));
+  //console.log(remainingtime);
+  chrome.alarms.create('totaltimealarm', { delayInMinutes: totaltime });
+  displaytimer(totaltime);
+})
+
+var skipBtn = document.getElementById('skip');
+skipBtn.addEventListener('click', function() {
+  chrome.action.setBadgeText({ text: 'ON' });
+  chrome.alarms.clearAll();
+  hideMask2();
+  showMask1();
+  var totaltime = parseInt(localStorage.getItem('studyInterval'));
+  //console.log(remainingtime);
+  chrome.alarms.create('totaltimealarm', { delayInMinutes: totaltime });
+  displaytimer(totaltime);
+})
+
+// Set up button functionalities for each mask
 document.getElementById('cancel1').addEventListener('click', clearAlarm1); // Mask 1 'Cancel Session'
 function clearAlarm1() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
   alert("Your session has been cancelled");
   hideMask1();
+  showMain();
   enableStartButton();
+  document.getElementById("countdown").innerHTML = "Remaining Timer : 0h 0m 0s ";
   //disableCancelButton();
 }
 
 
 document.getElementById('cancel2').addEventListener('click', clearAlarm2); // Mask 2 'Cancel Session'
 function clearAlarm2() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
   alert("Your session has been cancelled");
-  hideMask2();
+  hidePauseMask();
+  showMain();
   enableStartButton();
+  document.getElementById("countdown").innerHTML = "Remaining Timer : 0h 0m 0s ";
   //disableCancelButton();
 }
 
 
 document.getElementById('cancel3').addEventListener('click', clearAlarm3); // Mask 3 'Cancel Session'
 function clearAlarm3() {
+  clearInterval(x);
+  chrome.action.setBadgeText({ text: '' });
+  chrome.alarms.clearAll();
+  alert("Your session has been cancelled");
+  hideMask2();
+  showMain();
+  enableStartButton();
+  document.getElementById("countdown").innerHTML = "Remaining Timer : 0h 0m 0s ";
+  //disableCancelButton();
+}
+
+document.getElementById('cancel4').addEventListener('click', clearAlarm3); // Mask 3 'Cancel Session'
+function clearAlarm4() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: '' });
   chrome.alarms.clearAll();
   alert("Your session has been cancelled");
   hideMask3();
+  showMain();
   enableStartButton();
+  document.getElementById("countdown").innerHTML = "Remaining Timer : 0h 0m 0s ";
   //disableCancelButton();
 }
 
@@ -155,8 +249,8 @@ function startbreak() {
   showMask3();
 }
 
-
-startBtn.addEventListener('click', validateInput); // Original page input validation
+// Session Start + input validation
+startBtn.addEventListener('click', validateInput); 
 function validateInput(){
   var name = document.getElementById('name');
   var designation = document.getElementById('designation');
@@ -194,8 +288,16 @@ function validateInput(){
     alert("Work/Study interval (before each break) required!");
     studyinterval.focus();
   }
+  else if(parseInt(studyinterval.value) < 1){
+    alert("Work/Study interval must be greater than 1 minute!");
+    studyinterval.focus();
+  }
   else if (breakinterval.value == ""){
     alert("Break length required!");
+    breakinterval.focus();
+  }
+  else if (parseInt(breakinterval.value) < 1){
+    alert("Break length must be atleast 1 minute!");
     breakinterval.focus();
   }
   else if (hobbies.value == ""){
@@ -217,9 +319,10 @@ function validateInput(){
   }
   */
   else{
-    setAlarm(studyinterval, breakinterval);
+    setAlarm(studyinterval.value);
+    displaytimer(studyinterval.value);
   }
-    
+  
 }
   
 
@@ -251,6 +354,7 @@ function enableCancelButton() {
 // Mask Functions
 
 function showMain(){
+  document.getElementById('countdown').style.display = 'none';
   document.getElementById('original-content').style.display = 'block';
   document.getElementById('workmask').style.display = 'none';
   document.getElementById('breakmask').style.display = 'none';
@@ -259,6 +363,7 @@ function showMain(){
 
 
 function showMask1() {
+  document.getElementById("countdown").style.display = 'block';
   document.getElementById('original-content').style.display = 'none';
   document.getElementById('workmask').style.display = 'block';
 }
@@ -267,6 +372,17 @@ function showMask1() {
 function hideMask1() {
   document.getElementById('original-content').style.display = 'block';
   document.getElementById('workmask').style.display = 'none';
+}
+
+function showPauseMask() {
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('workmask').style.display = 'none';
+  document.getElementById('pausemask').style.display = 'block';
+}
+
+
+function hidePauseMask() {
+  document.getElementById('pausemask').style.display = 'none';
 }
 
 

@@ -3,6 +3,27 @@
 
 'use strict';
 
+chrome.alarms.onAlarm.addListener(alarm => {
+  if (alarm.name === 'totaltimealarm') {
+      // Code to execute when alarm1 is triggered
+      chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'images/homeimage.png',
+          title: 'MindFocus',
+          message: "Yay, break time! Let's take a mindful break!"
+      });
+  } else if (alarm.name === 'breakalarm') {
+      // Code to execute when alarm2 is triggered
+      chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'images/homeimage.png',
+          title: 'MindFocus',
+          message: "Break time is up! Let's get back to work!"
+      });
+  }
+});
+
+/*
 chrome.alarms.onAlarm.addListener(() => {
   chrome.action.setBadgeText({ text: '' });
   chrome.notifications.create({
@@ -14,7 +35,8 @@ chrome.alarms.onAlarm.addListener(() => {
     priority: 0
   });
 });
-
+*/
+/*
 chrome.notifications.onButtonClicked.addListener(async (notificationId, buttonIndex) => {
   const item = await chrome.storage.sync.get(['totalminutes']);
   chrome.action.setBadgeText({ text: 'ON' });
@@ -33,3 +55,4 @@ chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) =
   if(buttonIndex === 0)
     chrome.tabs.create({ url: 'https://www.youtube.com' });
 });
+*/

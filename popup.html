@@ -11,9 +11,10 @@ occurs when you click on the MindFocus extension icon -->
 
   </head>
   <body>
-      <!-- Original content -->
-      <div id="original-content">
-      <div class="container">
+    
+    <!-- Original content -->
+    <div id="original-content">
+        <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
             <label for="name">What is your name?</label>
@@ -77,23 +78,28 @@ occurs when you click on the MindFocus extension icon -->
             <div class="rolling-selector">
                 <select id="hobbies">
                     <option>-- Select --</option>
-                    <option value="15">Youtube</option>
-                    <option value="30">Art</option>
-                    <option value="45">Wordle</option>
-                    <option value="60">Journal</option>
+                    <option value="1">Youtube</option>
+                    <option value="2">Art</option>
+                    <option value="3">Wordle</option>
+                    <option value="4">Journal</option>
+                    <option value="5">Reading</option>
+                    <option value="6">Music</option>
+                    <option value="7">Cooking</option>
+                    <option value="8">Walk</option>
+                    <option value="9">Water</option>
                 </select>
             </div>
           </div>
           <div class="button-group">
             <button id="start">Start Session</button>
             <!--<button id="cancel">Cancel Session</button>-->
+          </div>
         </div>
-        </div>
-      </div>
+    </div>
 
 
-      <!-- Working Session Mask (Mask 1) -->
-      <div id="workmask" style="display: none;">
+    <!-- Working Session Mask (Mask 1) -->
+    <div id="workmask" style="display: none;">
         <img src="./images/popupImage.png" id="popupImage" />
         <h1 style="text-align:center;">Your work session has begun!</h1>
         <p style="text-align:center;">We will notify you when it is time to take a break.</p>
@@ -101,41 +107,57 @@ occurs when you click on the MindFocus extension icon -->
           <button id="pause">Pause Session</button>
           <button id="cancel1">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
+        </div>
+    </div>
+
+    <!-- Working Session PAUSED Mask (Mask Pause) -->
+    <div id="pausemask" style="display: none;">
+      <img src="./images/popupImage.png" id="popupImage" />
+      <h1 style="text-align:center;">Your work session has been paused!</h1>
+      <p style="text-align:center;">Press Resume to continue!</p>
+      <div class="button-group">
+        <button id="resume1">Resume Session</button>
+        <button id="cancel2">Cancel Session</button>
+        <p style="text-align:center;">Please keep this tab open.</p>
       </div>
-      </div>
+  </div>
 
 
       <!-- Break Session Mask (Mask 2) -->
-      <div id="breakmask" style="display: none;">
+    <div id="breakmask" style="display: none;">
         <img src="./images/popupImage.png" id="popupImage" />
         <h1>It's time to take a break!</h1>
         <p style="text-align:center;">How would you like to spend your break?</p>
         <div class="button-group">
           <button id="startbreak">
-            <a href="https://www.youtube.com/" target="_blank" style="text-decoration: none; color: inherit;">
               Start Break
-            </a>
           </button>
           <button id="skip">Skip break</button>
-          <button id="cancel2">Cancel Session</button>
+          <button id="cancel3">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
-      </div>
-      </div>
+        </div>
+    </div>
 
 
       <!-- In Break Session Mask (Mask 3) -->
-      <div id="inbreakmask" style="display: none;">
+    <div id="inbreakmask" style="display: none;">
         <img src="./images/popupImage.png" id="popupImage" />
         <h1>Enjoy your break!</h1>
         <p style="text-align:center;">We will notify you when it is time to get back to work.</p>
         <div class="button-group">
-          <button id="pause">Resume Work Session</button>
-          <button id="cancel3">Cancel Session</button>
+          <button id="resume2">Resume Work Session</button>
+          <button id="cancel4">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
-      </div>
-      </div>
+        </div>
+    </div>
 
-
+      <!-- Countdown Timer Mask -->
+    <div id="countdown" style="display: none; text-align: center; font-size: 30px; margin-top: 0px;">
+        Remaining Timer : 0h 0m 0s
+    </div>
+    <div id="breakover" style="display: none;">
+      <p>Break Time is Over! Would you like to continue with your work</p>
+    </div>
     <script src="popup.js"></script>     
   </body>
 </html>
