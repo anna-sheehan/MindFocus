@@ -4,6 +4,7 @@
 
 'use strict';
 
+showEmotionMask()
 
 // Set up global buttons
 const startBtn = document.getElementById('start');
@@ -410,6 +411,72 @@ function hideMask3() {
 }
 
 
+
+/*
+Emotion mask incorporation
+*/
+
+// Function to open the Penzu website for journal writing
+function openJournal() {
+  chrome.tabs.create({ url: 'https://penzu.com/' });
+}
+
+// Function to show the emotion input mask
+function showEmotionMask() {
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('emotion-mask').style.display = 'block';
+}
+
+
+// Add event listener to each emotion icon
+// Function to display custom notification about the selected emotion
+function showEmotionNotification(emotion) {
+  var message = "";
+  switch(emotion) {
+      case "happy":
+          message = "You're doing great! Keep up the positive vibes!";
+          break;
+      case "sad":
+          message = "It's okay to feel down sometimes. Remember, tomorrow is a new day!";
+          break;
+      case "angry":
+          message = "Take a deep breath. It's okay to feel angry. Let's work through it together.";
+          break;
+      // Add more cases for other emotions if needed
+      default:
+          message = "You're doing great! Keep up the good work!";
+          break;
+  }
+  // Display the customized message as an alert
+  alert(message);
+}
+// Add event listener to each emotion icon
+var emotionIcons = document.querySelectorAll('.emotion-icon');
+emotionIcons.forEach(function(icon) {
+  icon.addEventListener('click', function() {
+      var selectedEmotion = icon.getAttribute('data-emotion');
+      // Display custom notification about the selected emotion
+      showEmotionNotification(selectedEmotion);
+      // Hide the emotion input mask
+      document.getElementById('emotion-mask-container').style.display = 'none';
+      document.getElementById('decision-mask-container').style.display = 'block';
+  });
+});
+
+document.getElementById('continue-working').addEventListener('click', function() {
+  // Hide the decision mask and show the original content
+  document.getElementById('decision-mask-container').style.display = 'none';
+  document.getElementById('original-content').style.display = 'block';
+});
+
+document.getElementById('go-to-journal').addEventListener('click', function() {
+  // Perform actions to go to the journaling page
+  openJournal();
+  // For example, you can open a new tab with the journaling page
+  // Or you can redirect the user to the journaling page
+  // Here, we'll simply log a message
+  console.log("Redirecting to journaling page...");
+});
 
 
 

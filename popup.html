@@ -30,38 +30,6 @@ occurs when you click on the MindFocus extension icon -->
             <label for="task">What are you planning to work on?</label>
             <input type="text" id="task" placeholder="Ex. Studying">
           </div>
-
-          <!--
-          <div class="input-group">
-            <label for="total-time">How long would you like to work?</label>
-            <div class="rolling-selector">
-                <select id="total-time">
-                    <option>-- Select --</option>
-                    <option value="2">2 minutes</option>
-                    <option value="5">5 minutes</option>
-                    <option value="30">30 minutes</option>
-                    <option value="45">45 minutes</option>
-                    <option value="60">1 hour</option>
-                    <option value="75">1 hour 15 minutes</option>
-                    <option value="90">1 hour 30 minutes</option>
-                    <option value="105">1 hour 45 minutes</option>
-                    <option value="120">2 hours</option>
-                </select>
-            </div>
-          </div>
-		  
-          <div class="two-col">
-            <div class="col1">
-              <label for="study-interval">How long do you want your Study intervals to be (in minutes)</label>
-              <input type="number" id="study-interval" placeholder="Ex. 30">
-            </div>
-      
-            <div class="col2">
-              <label for="break-interval">How long do you want your Break intervals to be (in minutes)</label>
-              <input type="number" id="break-interval" placeholder="Ex. 10">
-            </div>
-          </div>
-          -->
           
           <div class="input-group">
             <label for="study-interval">How long do you want your Work intervals to be (in minutes)</label>
@@ -158,6 +126,31 @@ occurs when you click on the MindFocus extension icon -->
     <div id="breakover" style="display: none;">
       <p>Break Time is Over! Would you like to continue with your work</p>
     </div>
+
+    <!-- Emotion Input Mask -->
+    <div id="emotion-mask-container">
+      <div id="emotion-mask">
+          <h1>How are you feeling?</h1>
+          <div class="emotion-icons">
+              <img src="../images/happy.jpeg" class="emotion-icon" data-emotion="happy" alt="Happy">
+              <img src="../images/sad.jpeg" class="emotion-icon" data-emotion="sad" alt="Sad">
+              <img src="../images/angry.jpeg" class="emotion-icon" data-emotion="angry" alt="Angry">
+              <img src="../images/bored.jpeg" class="emotion-icon" data-emotion="bored" alt="Bored">
+              <!-- Add more emotion icons as needed -->
+          </div>
+      </div>
+  </div>
+  
+  <!--Decision Mask-->
+  <div id="decision-mask-container" style="display: none;">
+      <div id="decision-mask">
+          <h1>What would you like to do?</h1>
+          <div class="button-group">
+              <button id="continue-working">Continue Working</button>
+              <button id="go-to-journal">Go to Journaling</button>
+          </div>
+      </div>
+  </div>
     <script src="popup.js"></script>     
   </body>
 </html>
