@@ -425,7 +425,16 @@ function openJournal() {
 function showEmotionMask() {
   document.getElementById('original-content').style.display = 'none';
   document.getElementById('emotion-mask').style.display = 'block';
+  document.getElementById('chatbot-mask').style.display = 'none';
 }
+
+function showChatmask() {
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('emotion-mask').style.display = 'none';
+  document.getElementById('chatbot-mask').style.display = 'block';
+  document.getElementById('decision-mask').style.display = 'none';
+}
+
 
 
 // Add event listener to each emotion icon
@@ -478,6 +487,24 @@ document.getElementById('go-to-journal').addEventListener('click', function() {
   console.log("Redirecting to journaling page...");
 });
 
+document.getElementById('chatbot-button').addEventListener('click', function() {
+  showChatmask()
+  console.log("Redirecting to journaling page...");
+});
+
+function ShowDecisionmask(){
+  document.getElementById('chatbot-mask').style.display = 'none';
+  document.getElementById('decision-mask').style.display = 'block';
+  document.getElementById('original-content').style.display = 'none';
+  document.getElementById('emotion-mask').style.display = 'none';
+  
+
+
+}
 
 
 
+document.getElementById('delete-button').addEventListener('click', function() {
+  ShowDecisionmask()
+
+});
