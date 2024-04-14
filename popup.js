@@ -478,6 +478,11 @@ document.getElementById('continue-working').addEventListener('click', function()
   document.getElementById('original-content').style.display = 'block';
 });
 
+document.getElementById('exit-work-session').addEventListener('click', function() {
+  // Hide the decision mask and show the original content
+  showEmotionMask();
+});
+
 document.getElementById('go-to-journal').addEventListener('click', function() {
   // Perform actions to go to the journaling page
   openJournal();
