@@ -4,13 +4,14 @@
 
 'use strict';
 
-showEmotionMask()
+//showEmotionMask()
 
 // Set up global buttons
 const startBtn = document.getElementById('start');
 const cancelBtn = document.getElementById('cancel');
 
 window.onload = async () => {
+  //showEmotionMask();
   if(localStorage.getItem('name') != null){
     document.getElementById('name').value = localStorage.getItem('name');
   }
@@ -20,12 +21,12 @@ window.onload = async () => {
   if(localStorage.getItem('task') != null){
     document.getElementById('task').value = localStorage.getItem('task');
   }
-  if(localStorage.getItem('studyInterval') != null){
-    document.getElementById('study-interval').value = localStorage.getItem('studyInterval');
-  }
-  if(localStorage.getItem('breakInterval') != null){
-    document.getElementById('break-interval').value = localStorage.getItem('breakInterval');
-  }
+  //if(localStorage.getItem('studyInterval') != null){
+    //document.getElementById('study-interval').value = localStorage.getItem('studyInterval');
+  //}
+  //if(localStorage.getItem('breakInterval') != null){
+    //document.getElementById('break-interval').value = localStorage.getItem('breakInterval');
+  //}
   if(localStorage.getItem('hobbies') != null){
     document.getElementById('hobbies').value = localStorage.getItem('hobbies');
   }
@@ -116,6 +117,7 @@ resumeBtn1.addEventListener('click', function() {
   hidePauseMask();
   showMask1();
   var remainingtime = distance;
+  clearInterval(x);
   //console.log(remainingtime);
   var newtotaltime = new Date().getTime() + remainingtime;
   chrome.alarms.create('totaltimealarm', { when: newtotaltime });
@@ -126,13 +128,14 @@ resumeBtn1.addEventListener('click', function() {
 // Start Break session
 var startbreakBtn = document.getElementById('startbreak');
 startbreakBtn.addEventListener('click', function() {
+  clearInterval(x);
   var breakInterval = parseInt(localStorage.getItem('breakInterval'));
   chrome.action.setBadgeText({ text: 'BR' });
   //console.log(breakInterval);
   chrome.alarms.create('breakalarm', { delayInMinutes: breakInterval });
   displaytimer(breakInterval);
-
-  var hobby = localStorage.getItem('hobbies');
+  //var hobbies = 
+  var hobby = document.getElementById('hobbies');
   if(hobby == "1"){
     chrome.tabs.create({ url: 'https://www.youtube.com' });
   }
@@ -166,6 +169,7 @@ startbreakBtn.addEventListener('click', function() {
 // Resume Work Session after break
 var resumeBtn2 = document.getElementById('resume2');
 resumeBtn2.addEventListener('click', function() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: 'ON' });
   chrome.alarms.clearAll();
   hideMask3();
@@ -178,6 +182,7 @@ resumeBtn2.addEventListener('click', function() {
 
 var skipBtn = document.getElementById('skip');
 skipBtn.addEventListener('click', function() {
+  clearInterval(x);
   chrome.action.setBadgeText({ text: 'ON' });
   chrome.alarms.clearAll();
   hideMask2();
@@ -285,7 +290,7 @@ function validateInput(){
     //alert("Total time required!");
     //totaltime.focus();
   //}
-  else if (studyinterval.value == ""){
+  else if (studyinterval.value == "default"){
     alert("Work/Study interval (before each break) required!");
     studyinterval.focus();
   }
@@ -293,7 +298,7 @@ function validateInput(){
     alert("Work/Study interval must be greater than 1 minute!");
     studyinterval.focus();
   }
-  else if (breakinterval.value == ""){
+  else if (breakinterval.value == "default"){
     alert("Break length required!");
     breakinterval.focus();
   }
@@ -422,17 +427,18 @@ function openJournal() {
 }
 
 // Function to show the emotion input mask
-function showEmotionMask() {
+/*
+function showDecisionMask() {
   document.getElementById('original-content').style.display = 'none';
-  document.getElementById('emotion-mask').style.display = 'block';
-  document.getElementById('chatbot-mask').style.display = 'none';
+  document.getElementById('emotion-mask').style.display = 'none';
+  document.getElementById('decision-mask').style.display = 'block';
 }
-
+*/
 function showChatmask() {
   document.getElementById('original-content').style.display = 'none';
   document.getElementById('emotion-mask').style.display = 'none';
   document.getElementById('chatbot-mask').style.display = 'block';
-  document.getElementById('decision-mask').style.display = 'none';
+  document.getElementById('decision-mask-container').style.display = 'none';
 }
 
 
@@ -442,18 +448,17 @@ function showChatmask() {
 function showEmotionNotification(emotion) {
   var message = "";
   switch(emotion) {
-      case "happy":
-          message = "You're doing great! Keep up the positive vibes!";
+      case "Happy":
+          message = "You're doing great! Let's keep up the energy!";
           break;
-      case "sad":
+      case "Sad":
           message = "It's okay to feel down sometimes. Remember, tomorrow is a new day!";
           break;
-      case "angry":
+      case "Angry":
           message = "Take a deep breath. It's okay to feel angry. Let's work through it together.";
           break;
-      // Add more cases for other emotions if needed
-      default:
-          message = "You're doing great! Keep up the good work!";
+      case "Bored":
+          message = "Feeling bored? Let's find something fun to do! How about trying a new hobby or activity?";
           break;
   }
   // Display the customized message as an alert
@@ -469,6 +474,8 @@ emotionIcons.forEach(function(icon) {
       // Hide the emotion input mask
       document.getElementById('emotion-mask-container').style.display = 'none';
       document.getElementById('decision-mask-container').style.display = 'block';
+      document.getElementById('chatbot-fab-container').style.display = 'block';
+      
   });
 });
 
@@ -480,7 +487,7 @@ document.getElementById('continue-working').addEventListener('click', function()
 
 document.getElementById('exit-work-session').addEventListener('click', function() {
   // Hide the decision mask and show the original content
-  showEmotionMask();
+  ShowDecisionmask();
 });
 
 document.getElementById('go-to-journal').addEventListener('click', function() {
@@ -493,23 +500,32 @@ document.getElementById('go-to-journal').addEventListener('click', function() {
 });
 
 document.getElementById('chatbot-button').addEventListener('click', function() {
-  showChatmask()
+  //showChatmask();
   console.log("Redirecting to journaling page...");
 });
 
 function ShowDecisionmask(){
   document.getElementById('chatbot-mask').style.display = 'none';
-  document.getElementById('decision-mask').style.display = 'block';
+  document.getElementById('decision-mask-container').style.display = 'block';
   document.getElementById('original-content').style.display = 'none';
   document.getElementById('emotion-mask').style.display = 'none';
-  
-
-
 }
 
 
 
 document.getElementById('delete-button').addEventListener('click', function() {
-  ShowDecisionmask()
+  //ShowDecisionmask();
+});
 
+
+// Show chatbot interface
+document.getElementById('chatbot-fab').addEventListener('click', function() {
+  document.getElementById('chatbot-mask').style.display = 'block';
+  document.getElementById('chatbot-fab').style.display = 'none'; // Hide the FAB
+});
+
+// Hide chatbot interface
+document.getElementById('delete-button').addEventListener('click', function() {
+  document.getElementById('chatbot-mask').style.display = 'none';
+  document.getElementById('chatbot-fab').style.display = 'block'; // Show the FAB
 });

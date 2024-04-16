@@ -23,7 +23,10 @@ window.onload = async () => {
         });
         //Creates a new mindfocus tab in case it doesn't already exist
         if(!tabExists){
-          window.open('popup.html', '_blank');
+          chrome.tabs.create({ url: "popup.html" }, function(tab) {
+            //chrome.localStorage.setItem('myExtensionTabId', myExtensionTabId);
+            chrome.storage.sync.set({ 'myExtensionTabId': tab.id });
+          });
         }
       });
     };

@@ -11,9 +11,16 @@ occurs when you click on the MindFocus extension icon -->
 
   </head>
   <body>
+
+    <!--Chatbot Floating Action Button-->
+    <div id="chatbot-fab-container" style="display: none;">
+      <div id="chatbot-fab">
+        <img src="../images/healthbot.webp" alt="Chat"/>
+      </div>
+    </div>
     
     <!-- Original content -->
-    <div id="original-content">
+    <div id="original-content" style="display:none">
         <div class="container">
           <h1>MindFocus</h1>
           <div class="input-group">
@@ -33,14 +40,35 @@ occurs when you click on the MindFocus extension icon -->
           
           <div class="input-group">
             <label for="study-interval">How long do you want your Work intervals to be (in minutes)</label>
-            <input type="number" id="study-interval" placeholder="Ex. 30">
+            <!--<input type="number" id="study-interval" placeholder="Ex. 30">-->
+            <div class="rolling-selector">
+              <select id="study-interval">
+                  <option selected value="default">-- Select --</option>
+                  <option value="1">1 min</option>
+                  <option value="15">15 mins.</option>
+                  <option value="30">30 mins.</option>
+                  <option value="45">45 mins.</option>
+                  <option value="60">60 mins.</option>
+                  <option value="90">90 mins.</option>
+                  <option value="120">120 mins.</option>
+              </select>
+            </div>
           </div>
     
           <div class="input-group">
             <label for="break-interval">How long do you want your Break intervals to be (in minutes)</label>
-            <input type="number" id="break-interval" placeholder="Ex. 10">
+            <!--<input type="number" id="break-interval" placeholder="Ex. 10">-->
+            <div class="rolling-selector">
+              <select id="break-interval">
+                  <option selected value="default">-- Select --</option>
+                  <option value="1">1 min</option>
+                  <option value="5">5 mins.</option>
+                  <option value="10">10 mins.</option>
+                  <option value="15">15 mins.</option>
+              </select>
+            </div>
           </div>
-          
+          <!--
           <div class="input-group">
             <label for="hobbies">How would you like to enjoy your breaks?</label>
             <div class="rolling-selector">
@@ -58,10 +86,10 @@ occurs when you click on the MindFocus extension icon -->
                 </select>
             </div>
           </div>
+          -->
           <div class="button-group">
             <button id="start">Start Session</button>
             <button id="exit-work-session">Exit Session</button>
-            <!--<button id="cancel">Cancel Session</button>-->
           </div>
         </div>
     </div>
@@ -74,7 +102,7 @@ occurs when you click on the MindFocus extension icon -->
         <p style="text-align:center;">We will notify you when it is time to take a break.</p>
         <div class="button-group">
           <button id="pause">Pause Session</button>
-          <button id="cancel1">Cancel Session</button>
+          <button id="cancel1" class="cancelbtns">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
         </div>
     </div>
@@ -86,41 +114,58 @@ occurs when you click on the MindFocus extension icon -->
       <p style="text-align:center;">Press Resume to continue!</p>
       <div class="button-group">
         <button id="resume1">Resume Session</button>
-        <button id="cancel2">Cancel Session</button>
+        <button id="cancel2" class="cancelbtns">Cancel Session</button>
         <p style="text-align:center;">Please keep this tab open.</p>
       </div>
-  </div>
+    </div>
 
 
-      <!-- Break Session Mask (Mask 2) -->
+    <!-- Break Session Mask (Mask 2) -->
     <div id="breakmask" style="display: none;">
         <img src="./images/popupImage.png" id="popupImage" />
         <h1>It's time to take a break!</h1>
         <p style="text-align:center;">How would you like to spend your break?</p>
+        <div class="input-group" style="text-align:center;">
+          <!--<label for="hobbies">How would you like to enjoy your breaks?</label>-->
+          <div class="rolling-selector">
+              <select id="hobbies" style="width: 10%;">
+                  <option value="default">-- Select --</option>
+                  <option value="1">Youtube</option>
+                  <option value="2">Art</option>
+                  <option value="3">Wordle</option>
+                  <option value="4">Journal</option>
+                  <option value="5">Reading</option>
+                  <option value="6">Music</option>
+                  <option value="7">Cooking</option>
+                  <option value="8">Walk</option>
+                  <option value="9">Water</option>
+              </select>
+          </div>
+        </div>
         <div class="button-group">
           <button id="startbreak">
               Start Break
           </button>
           <button id="skip">Skip break</button>
-          <button id="cancel3">Cancel Session</button>
+          <button id="cancel3" class="cancelbtns">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
         </div>
     </div>
 
 
-      <!-- In Break Session Mask (Mask 3) -->
+    <!-- In Break Session Mask (Mask 3) -->
     <div id="inbreakmask" style="display: none;">
         <img src="./images/popupImage.png" id="popupImage" />
         <h1>Enjoy your break!</h1>
         <p style="text-align:center;">We will notify you when it is time to get back to work.</p>
         <div class="button-group">
           <button id="resume2">Resume Work Session</button>
-          <button id="cancel4">Cancel Session</button>
+          <button id="cancel4" class="cancelbtns">Cancel Session</button>
           <p style="text-align:center;">Please keep this tab open.</p>
         </div>
     </div>
 
-      <!-- Countdown Timer Mask -->
+    <!-- Countdown Timer Mask -->
     <div id="countdown" style="display: none; text-align: center; font-size: 30px; margin-top: 0px;">
         Remaining Timer : 0h 0m 0s
     </div>
@@ -131,41 +176,40 @@ occurs when you click on the MindFocus extension icon -->
     <!-- Emotion Input Mask -->
     <div id="emotion-mask-container">
       <div id="emotion-mask">
-          <h1>How are you feeling?</h1>
+          <h1>How are you feeling today?</h1>
           <div class="emotion-icons">
-            <img src="../images/happy.jpeg" class="emotion-icon" data-emotion="Happy" alt="Happy">
-            <img src="../images/sad2.jpeg" class="emotion-icon" data-emotion="Sad" alt="Sad">
-            <img src="../images/angry.jpeg" class="emotion-icon" data-emotion="Angry" alt="Angry">
-            <img src="../images/bored2.jpeg" class="emotion-icon" data-emotion="Bored" alt="Bored">
-            
-              <!-- Add more emotion icons as needed -->
+            <img src="../images/happy.jpeg" class="emotion-icon" data-emotion="Happy" alt="Happy" value="Happy">
+            <img src="../images/sad2.jpeg" class="emotion-icon" data-emotion="Sad" alt="Sad" value="Sad">
+            <img src="../images/angry.jpeg" class="emotion-icon " data-emotion="Angry" alt="Angry" value="Angry">
+            <img src="../images/bored2.jpeg" class="emotion-icon" data-emotion="Bored" alt="Bored" value="Bored">
           </div>
       </div>
-  </div>
+    </div>
   
-  <!--Decision Mask-->
-  <div id="decision-mask-container" style="display: none;">
+    <!--Decision Mask-->
+    <div id="decision-mask-container" style="display: none;">
       <div id="decision-mask">
-          <h1>What would you like to do?</h1>
-          <div class="button-group">
-              <button id="continue-working">Continue Working</button>
-              <button id="go-to-journal">Go to Journaling</button>
-              <button id="chatbot-button">Chat with Mental Health Bot</button>
-          </div>
+        <h1>What would you like to do today?</h1>
+        <div class="button-group">
+          <button id="continue-working">Start a Working Session</button>
+          <button id="go-to-journal">Go to Journaling</button>
+          <button id="chatbot-button">Mental wellness exercises</button>
+        </div>
       </div>
-  </div>
+    </div>
 
-  <div id="chatbot-mask">
-    <div id="chatbot-heading">
-      <h1>Chat with our Bot</h1>
+    <!--Chatbot Mask-->
+    <div id="chatbot-mask" style="display: none;">
+      <div id="chatbot-heading">
+        <h1>Chat with our Bot</h1>
+      </div>
+      <div id="chatbot-content">
+        <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/44e1df3c-580e-449a-aa0d-ed7c752dabc6"></iframe>
+      </div>
+      <div id="exit-button">
+        <button id="delete-button">Minimize</button>
+      </div>
     </div>
-    <div id="chatbot-content">
-      <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/44e1df3c-580e-449a-aa0d-ed7c752dabc6"></iframe>
-    </div>
-    <div id="exit-button">
-      <button id="delete-button">Exit</button>
-    </div>
-  </div>
       
   
     <script src="popup.js"></script>     

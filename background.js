@@ -18,41 +18,43 @@ chrome.alarms.onAlarm.addListener(alarm => {
           type: 'basic',
           iconUrl: 'images/homeimage.png',
           title: 'MindFocus',
-          message: "Break time is up! Let's get back to work!"
+          message: "Break time is up! Let's get back to work! Please get back to the popup tab!"
       });
   }
 });
 
-/*
-chrome.alarms.onAlarm.addListener(() => {
-  chrome.action.setBadgeText({ text: '' });
-  chrome.notifications.create({
-    type: 'basic',
-    iconUrl: 'images/homeimage.png',
-    title: 'MindFocus',
-    message: "Let's take a mindful break!",
-    buttons: [{ title: 'Yay, break time' }, { title: 'No, keep working' }],
-    priority: 0
-  });
-});
-*/
-/*
-chrome.notifications.onButtonClicked.addListener(async (notificationId, buttonIndex) => {
-  const item = await chrome.storage.sync.get(['totalminutes']);
-  chrome.action.setBadgeText({ text: 'ON' });
-  if(buttonIndex == 0)
-  {
-    chrome.action.setBadgeText({ text: 'BR' });
-    chrome.alarms.clear('totaltimealarm');
-    chrome.storage.sync.remove(['totalminutes']);
-  }
-  if(buttonIndex == 1){
-    chrome.alarms.create({ delayInMinutes: item.totalminutes });
-  }
+chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
+    console.log(tabId);
+
+    chrome.storage.sync.get('myExtensionTabId', function(result) {
+      console.log(result.myExtensionTabId);
+      if (tabId === result.myExtensionTabId) {
+        console.log("tab removed");
+        chrome.alarms.clearAll();
+        chrome.action.setBadgeText({ text: '' });
+        return;
+      }
+    })
+
+    
 });
 
-chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
-  if(buttonIndex === 0)
-    chrome.tabs.create({ url: 'https://www.youtube.com' });
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  // Check if the changeInfo status is 'complete' to ensure the page is fully reloaded
+  if (changeInfo.status === 'complete') {
+      // Now you need to determine if this is the tab you are tracking
+      chrome.storage.sync.get('myExtensionTabId', function(result) {
+          if (tabId === result.myExtensionTabId) {
+              // The tab you are tracking has been reloaded, perform your tasks here
+              console.log('The extension tab was reloaded.');
+
+              // Perform any reset or cleanup operations here
+              // Example: Resetting a timer or clearing alarms
+              chrome.alarms.clearAll(() => {
+                  console.log('All alarms cleared due to tab reload.');
+              });
+              chrome.action.setBadgeText({ text: '' });
+          }
+      });
+  }
 });
-*/
