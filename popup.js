@@ -128,39 +128,46 @@ resumeBtn1.addEventListener('click', function() {
 // Start Break session
 var startbreakBtn = document.getElementById('startbreak');
 startbreakBtn.addEventListener('click', function() {
+  console.log("Start Break");
   clearInterval(x);
   var breakInterval = parseInt(localStorage.getItem('breakInterval'));
   chrome.action.setBadgeText({ text: 'BR' });
   //console.log(breakInterval);
   chrome.alarms.create('breakalarm', { delayInMinutes: breakInterval });
   displaytimer(breakInterval);
-  //var hobbies = 
   var hobby = document.getElementById('hobbies');
-  if(hobby == "1"){
+  //console.log(hobby.value);
+  if(hobby.value == "1"){
+    console.log("Open YouTube");
     chrome.tabs.create({ url: 'https://www.youtube.com' });
   }
-  else if (hobby == "2"){
+  else if (hobby.value == "2"){
+    console.log("Open Sketchpad");
     chrome.tabs.create({ url: 'https://sketch.io/sketchpad/' });
   }
-  else if (hobby == "3"){
+  else if (hobby.value == "3"){
+    console.log("Open Wordle");
     chrome.tabs.create({ url: 'https://www.nytimes.com/games/wordle/index.html' });
   }
-  else if (hobby == "4"){
+  else if (hobby.value == "4"){
+    console.log("Open Notion");
     chrome.tabs.create({ url: 'https://www.notion.so/' });
   }
-  else if (hobby == "5"){
+  else if (hobby.value == "5"){
+    console.log("Open Open Library");
     chrome.tabs.create({ url: 'https://openlibrary.org/' });
   }
-  else if (hobby == "6"){
+  else if (hobby.value == "6"){
+    console.log("Open Spotify");
     chrome.tabs.create({ url: 'https://open.spotify.com/' });
   }
-  else if (hobby == "7"){
+  else if (hobby.value == "7"){
     chrome.tabs.create({ url: 'https://www.thechoppingblock.com/cooking-resources' });
   }
-  else if (hobby == "8"){
+  else if (hobby.value == "8"){
     alert("Have a great time!");
   }
-  else if (hobby == "9"){
+  else if (hobby.value == "9"){
     alert("Here's to the best beverage!");
   }
 })
