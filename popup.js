@@ -506,8 +506,8 @@ document.getElementById('go-to-journal').addEventListener('click', function() {
   console.log("Redirecting to journaling page...");
 });
 
-document.getElementById('chatbot-button').addEventListener('click', function() {
-  //showChatmask();
+document.getElementById('mental-wellness').addEventListener('click', function() {
+  chrome.tabs.create({ url: 'https://www.self.com/story/best-mindfulness-exercises' });
   console.log("Redirecting to journaling page...");
 });
 
